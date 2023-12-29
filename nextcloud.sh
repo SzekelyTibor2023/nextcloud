@@ -1,11 +1,21 @@
-sudo apt-get update -y
+#!/usr/bin/expect -f
+spawn sudo snap install nextcloud
+expect eof
 
-sudo apt-get upgrade -y
+spawn sudo nextcloud.manual-install tibor Gumibogyo5
+expect eof
 
-sudo snap install nextcloud
+spawn sudo nextcloud.occ config:system:set trusted_domains 1 --value=storage1.cubehost.hu
+expect eof
 
-sudo nextcloud.manual-install tibor Gumibogyo5
+spawn sudo ufw disable
+expect eof
 
-sudo nextcloud.occ config:system:set trusted_domains 1 --value=video.kesseyrecords.hu
-
-sudo nextcloud.enable-https lets-encrypt --non-interactive --agree-tos --email tiborgaming2021@gmail.com
+spawn sudo nextcloud.enable-https lets-encrypt
+expect "Would you like to use Let's Encrypt (Y/n):"
+send "y\r"
+expect "Please enter an email (for urgent notices or key recovery):"
+send "tiborgaming2021@gmail.com\r"
+expect "Please enter your domain name(s) (space-separated):"
+send "storage1.cubehost.hu\r"
+expect eof
