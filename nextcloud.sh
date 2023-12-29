@@ -19,3 +19,5 @@ send "tiborgaming2021@gmail.com\r"
 expect "Please enter your domain name(s) (space-separated):"
 send "storage1.cubehost.hu\r"
 expect eof
+
+return "99999999999"
